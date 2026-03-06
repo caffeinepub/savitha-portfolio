@@ -1,0 +1,580 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Playfair Display (Display/Script headings) ── */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+/* ── Outfit (Body text) ── */
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* ── Fraunces (Decorative accents) ── */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 1.25rem;
+
+    /* ── My Sky of Wings: Dark Purple + Pink Glassmorphism ── */
+    --background: 0.10 0.06 300;
+    --foreground: 0.96 0.02 300;
+    --card: 0.12 0.05 300;
+    --card-foreground: 0.96 0.02 300;
+    --popover: 0.13 0.05 300;
+    --popover-foreground: 0.96 0.02 300;
+    --primary: 0.72 0.25 310;
+    --primary-foreground: 0.98 0.01 300;
+    --secondary: 0.18 0.08 305;
+    --secondary-foreground: 0.88 0.10 310;
+    --muted: 0.15 0.06 300;
+    --muted-foreground: 0.65 0.08 300;
+    --accent: 0.70 0.28 340;
+    --accent-foreground: 0.98 0.01 300;
+    --destructive: 0.58 0.24 27;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.30 0.10 300;
+    --input: 0.18 0.07 300;
+    --ring: 0.70 0.28 340;
+
+    --chart-1: 0.72 0.25 310;
+    --chart-2: 0.68 0.28 340;
+    --chart-3: 0.65 0.22 280;
+    --chart-4: 0.78 0.20 320;
+    --chart-5: 0.60 0.24 290;
+
+    --sidebar: 0.10 0.05 300;
+    --sidebar-foreground: 0.96 0.02 300;
+    --sidebar-primary: 0.72 0.25 310;
+    --sidebar-primary-foreground: 0.98 0.01 300;
+    --sidebar-accent: 0.18 0.08 305;
+    --sidebar-accent-foreground: 0.88 0.10 310;
+    --sidebar-border: 0.30 0.10 300;
+    --sidebar-ring: 0.70 0.28 340;
+
+    /* ── Sky of Wings custom neons ── */
+    --neon-purple: #a855f7;
+    --neon-pink: #ec4899;
+    --neon-magenta: #d946ef;
+    --sky-bg-start: #1a0033;
+    --sky-bg-mid: #2d0045;
+    --sky-bg-end: #3d0030;
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-blur: blur(20px);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(
+      135deg,
+      var(--sky-bg-start) 0%,
+      var(--sky-bg-mid) 40%,
+      #1f003a 70%,
+      var(--sky-bg-end) 100%
+    );
+    background-attachment: fixed;
+    font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* ───────────────────────────────────────
+   GLASSMORPHISM UTILITIES
+─────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 40px rgba(168, 85, 247, 0.08);
+}
+
+.glass-nav {
+  background: rgba(26, 0, 51, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 2px 30px rgba(168, 85, 247, 0.15);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2), 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.glass-input::placeholder {
+  color: rgba(168, 85, 247, 0.5);
+}
+
+/* ───────────────────────────────────────
+   NEON GLOW TYPOGRAPHY
+─────────────────────────────────────── */
+.neon-text-purple {
+  color: var(--neon-purple);
+  text-shadow:
+    0 0 7px var(--neon-purple),
+    0 0 14px var(--neon-purple),
+    0 0 40px rgba(168, 85, 247, 0.5);
+}
+
+.neon-text-pink {
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 7px var(--neon-pink),
+    0 0 14px var(--neon-pink),
+    0 0 40px rgba(236, 72, 153, 0.5);
+}
+
+.neon-text-magenta {
+  color: var(--neon-magenta);
+  text-shadow:
+    0 0 7px var(--neon-magenta),
+    0 0 14px var(--neon-magenta),
+    0 0 40px rgba(217, 70, 239, 0.5);
+}
+
+.neon-text-white {
+  color: #ffffff;
+  text-shadow:
+    0 0 5px var(--neon-purple),
+    0 0 20px var(--neon-purple),
+    0 0 40px rgba(168, 85, 247, 0.4);
+}
+
+/* ───────────────────────────────────────
+   NEON BUTTON STYLES
+─────────────────────────────────────── */
+.sky-button {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(236, 72, 153, 0.15) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.6);
+  color: #e9d5ff;
+  text-shadow: 0 0 5px rgba(168, 85, 247, 0.6);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35), inset 0 0 10px rgba(168, 85, 247, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: "Outfit", sans-serif;
+  letter-spacing: 0.06em;
+  border-radius: 12px;
+  padding: 0.5rem 1.25rem;
+}
+
+.sky-button:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(236, 72, 153, 0.25) 100%);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+  border-color: var(--neon-purple);
+}
+
+.sky-button:active {
+  transform: translateY(0);
+}
+
+.sky-button-pink {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(217, 70, 239, 0.15) 100%);
+  border: 1px solid rgba(236, 72, 153, 0.6);
+  color: #fce7f3;
+  text-shadow: 0 0 5px rgba(236, 72, 153, 0.6);
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.35);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 0.5rem 1.25rem;
+}
+
+.sky-button-pink:hover {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 40px rgba(236, 72, 153, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ───────────────────────────────────────
+   SCROLL SNAP CONTAINER
+─────────────────────────────────────── */
+.portfolio-scroll-container {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portfolio-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.portfolio-scroll-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.portfolio-slide {
+  height: calc(100dvh - 64px);
+  min-height: calc(100dvh - 64px);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.portfolio-slide-inner {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem 2rem;
+}
+
+.portfolio-slide-inner::-webkit-scrollbar {
+  width: 2px;
+}
+
+.portfolio-slide-inner::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 2px;
+}
+
+/* ───────────────────────────────────────
+   CHERRY BLOSSOM PETALS
+─────────────────────────────────────── */
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-60px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(calc(100vh + 60px)) translateX(80px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes petal-sway {
+  0%, 100% { transform: translateX(0px); }
+  25% { transform: translateX(20px); }
+  75% { transform: translateX(-20px); }
+}
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  animation: petal-fall linear infinite;
+}
+
+.petal-inner {
+  width: 12px;
+  height: 16px;
+  background: radial-gradient(ellipse, rgba(255, 182, 193, 0.9) 0%, rgba(255, 105, 180, 0.6) 60%, transparent 100%);
+  border-radius: 50% 0 50% 0;
+  animation: petal-sway ease-in-out infinite alternate;
+  box-shadow: 0 0 6px rgba(255, 105, 180, 0.4);
+}
+
+/* ───────────────────────────────────────
+   FLOATING PARTICLES
+─────────────────────────────────────── */
+@keyframes particle-float {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
+}
+
+@keyframes particle-drift {
+  0% { transform: translate(0, 0); opacity: 0.3; }
+  33% { transform: translate(15px, -20px); opacity: 0.7; }
+  66% { transform: translate(-10px, -35px); opacity: 0.5; }
+  100% { transform: translate(0, 0); opacity: 0.3; }
+}
+
+.particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 50%;
+  animation: particle-drift ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────
+   PROFILE RING ANIMATION
+─────────────────────────────────────── */
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ring-spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.profile-ring-outer {
+  animation: ring-spin 8s linear infinite;
+}
+
+.profile-ring-inner {
+  animation: ring-spin-reverse 5s linear infinite;
+}
+
+/* ───────────────────────────────────────
+   NEON PULSE ANIMATION
+─────────────────────────────────────── */
+@keyframes neon-pulse-purple {
+  0%, 100% {
+    text-shadow:
+      0 0 7px #a855f7,
+      0 0 14px #a855f7,
+      0 0 30px rgba(168, 85, 247, 0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 12px #a855f7,
+      0 0 24px #a855f7,
+      0 0 60px rgba(168, 85, 247, 0.8),
+      0 0 90px rgba(168, 85, 247, 0.4);
+  }
+}
+
+@keyframes neon-pulse-pink {
+  0%, 100% {
+    text-shadow:
+      0 0 7px #ec4899,
+      0 0 14px #ec4899,
+      0 0 30px rgba(236, 72, 153, 0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 12px #ec4899,
+      0 0 24px #ec4899,
+      0 0 60px rgba(236, 72, 153, 0.8),
+      0 0 90px rgba(236, 72, 153, 0.4);
+  }
+}
+
+.neon-pulse-purple {
+  animation: neon-pulse-purple 2.5s ease-in-out infinite;
+  color: #d8b4fe;
+}
+
+.neon-pulse-pink {
+  animation: neon-pulse-pink 2s ease-in-out infinite;
+  color: #f9a8d4;
+}
+
+/* ───────────────────────────────────────
+   GLOW CARD PULSE
+─────────────────────────────────────── */
+@keyframes glow-box-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 15px rgba(168, 85, 247, 0.3),
+      0 0 40px rgba(168, 85, 247, 0.1),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(168, 85, 247, 0.5),
+      0 0 60px rgba(168, 85, 247, 0.2),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.glow-card-pulse {
+  animation: glow-box-pulse 3s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────
+   FLOAT ANIMATIONS
+─────────────────────────────────────── */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.float-gentle {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+.float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────
+   SKILL PILL
+─────────────────────────────────────── */
+.skill-pill {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #d8b4fe;
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.8rem;
+  font-family: "Outfit", sans-serif;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.2);
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.skill-pill:hover {
+  background: rgba(168, 85, 247, 0.28);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ───────────────────────────────────────
+   STAT CARD
+─────────────────────────────────────── */
+@keyframes stat-glow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.25), 0 4px 20px rgba(0,0,0,0.3);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(236, 72, 153, 0.4), 0 4px 20px rgba(0,0,0,0.3);
+  }
+}
+
+.stat-card {
+  animation: stat-glow 3s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────
+   SWIPE HINT
+─────────────────────────────────────── */
+@keyframes bounce-up {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+.swipe-hint {
+  animation: bounce-up 1.5s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────
+   ACCORDION FIX
+─────────────────────────────────────── */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+/* ───────────────────────────────────────
+   SCROLLBAR GLOBAL HIDE
+─────────────────────────────────────── */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* ───────────────────────────────────────
+   GRADIENT TEXT
+─────────────────────────────────────── */
+.gradient-text-purple-pink {
+  background: linear-gradient(135deg, #d8b4fe 0%, #f9a8d4 50%, #d8b4fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradient-shift 4s linear infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ───────────────────────────────────────
+   LOADING SPINNER (purple theme)
+─────────────────────────────────────── */
+.sky-spinner {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(168, 85, 247, 0.2);
+  border-top-color: var(--neon-purple);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
